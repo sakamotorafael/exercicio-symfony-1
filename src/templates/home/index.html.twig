@@ -5,8 +5,11 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Livros do clube do livro</title>
+    <title>Cadastro de veículos</title>
     <style>
+        *{
+            font-family: "Arial"
+        }
         form, table {
             width: 50%;
             margin: auto;
@@ -26,7 +29,7 @@
         form > div > label {
             font-size: 18pt;
         }
-        form > div > input {
+        form > div > input, select {
             margin-top: 15px;
             font-size: 18pt;
             padding: 5px 10px;
@@ -38,20 +41,30 @@
             background: #333;
             color: #fff;
         }
+        td {
+            text-align: center;
+        }
     </style>
 </head>
 <body>
     <form>
         <div>
-            <label>Nome do livro</label>
+            <label>Veículo</label>
             <input type="text" />
         </div>
         <div>
-            <label>Quantidade de páginas</label>
+            <label>Quantidade de rodas</label>
             <input type="number" />
         </div>
         <div>
-            <label>Valor</label>
+            <label>É motorizado</label>
+            <select id="motorizado">
+                <option value="sim">Sim</option>
+                <option value="nao">Não</option>
+            </select>
+        </div>
+        <div>
+            <label>Tipo de via</label>
             <input type="text" />
         </div>
         <div>
@@ -61,17 +74,19 @@
     <table>
         <thead>
             <tr>
-                <th>Nome do livro</th>
-                <th>Quantidade de páginas</th>
-                <th>Valor</th>
+                <th>Veículo</th>
+                <th>Quantidade de rodas</th>
+                <th>Motorizado</th>
+                <th>Tipo de via</th>
             </tr>
         </thead>
         <tbody>
-            {% for livro in livros %}
+            {% for veiculo in veiculos %}
             <tr>
-                <td>{{ livro.nome }}</td>
-                <td>{{livro.qtdPaginas}}</td>
-                <td>R$ {{livro.valor}}</td>
+                <td>{{ veiculo.nome }}</td>
+                <td>{{veiculo.qtdRodas}}</td>
+                <td>{{veiculo.motorizado}}</td>
+                <td>{{veiculo.tipoVia}}</td>
             </tr>
             {% endfor %}
         </tbody>
