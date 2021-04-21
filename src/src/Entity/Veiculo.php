@@ -3,16 +3,32 @@
 
 namespace App\Entity;
 
+use App\Repository\VeiculoRepository;
+use Doctrine\ORM\Mapping as ORM;
 
+/**
+ * @ORM\Entity(repositoryClass=VeiculoRepository::class)
+ * @ORM\Table(name="veiculo")
+ */
 class Veiculo
 {
+    /**
+     * @ORM\Id
+     * @ORM\Column(type="integer")
+     * @ORM\GeneratedValue
+     */
+    private int $id;
+    /** @ORM\Column(type="string", nullable=false) */
     private string $nome;
+    /** @ORM\Column(type="integer", nullable=false) */
     private int $qtdRodas;
+    /** @ORM\Column(type="string", nullable=false) */
     private string $motorizado;
+    /** @ORM\Column(type="string", nullable=false) */
     private string $tipoVia;
 
     /**
-     * Livro constructor.
+     * Veiculo constructor.
      * @param string $nome
      * @param int $qtdRodas;
      * @param string $motorizado;
@@ -24,6 +40,22 @@ class Veiculo
         $this->qtdRodas = $qtdRodas;
         $this->motorizado = $motorizado;
         $this->tipoVia = $tipoVia;
+    }
+
+    /**
+     * @return int
+     */
+    public function getId(): int
+    {
+        return $this->id;
+    }
+
+    /**
+     * @param int $id
+     */
+    public function setId(int $id): void
+    {
+        $this->id = $id;
     }
 
     /**
@@ -69,7 +101,7 @@ class Veiculo
     /**
      * @param string $motorizado
      */
-    public function setMotorizado(float $motorizado): void
+    public function setMotorizado(string $motorizado): void
     {
         $this->motorizado = $motorizado;
     }
@@ -85,9 +117,8 @@ class Veiculo
     /**
      * @param string $tipoVia
      */
-    public function setTipoVia(float $tipoVia): void
+    public function setTipoVia(string $tipoVia): void
     {
         $this->tipoVia = $tipoVia;
     }
-
 }

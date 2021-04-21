@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="pt-br">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+		<meta http-equiv="X-UA-Compatible" content="ie=edge">
+		<title>Cadastro de veículos</title>
+		<style>
+			* {
+				font-family: "Arial"
+			}
+			form,
+			table {
+				width: 50%;
+				margin: auto;
+				border: 1px solid #ccc;
+				padding: 50px;
+				box-sizing: border-box;
+				border-radius: 10px;
+			}
+			form > div {
+				display: flex;
+				flex: 1;
+				flex-direction: column;
+				justify-content: center;
+				align-items: center;
+				margin: 10px;
+			}
+			form > div > label {
+				font-size: 18pt;
+			}
+			form > div > input,
+			select {
+				margin-top: 15px;
+				font-size: 18pt;
+				padding: 5px 10px;
+			}
+			table {
+				margin-top: 15px;
+			}
+			thead th {
+				background: #333;
+				color: #fff;
+			}
+			td {
+				text-align: center;
+			}
+		</style>
+	</head>
+	<body>
+		<form action="/editar/salvar/{{veiculo.id}}" method="POST">
+			<div>
+				<label>Veículo</label>
+				<input type="text" name="veiculo" value="{{veiculo.nome}}"/>
+			</div>
+			<div>
+				<label>Quantidade de rodas</label>
+				<input type="number" name="qtdRodas" value="{{veiculo.qtdRodas}}"/>
+			</div>
+			<div>
+				<label>É motorizado</label>
+				<select id="motorizado" name="motorizado">
+					{% if veiculo.motorizado == "sim" %}
+						<option value="sim" selected>Sim</option>
+						<option value="nao">Não</option>
+					{% else %}
+						<option value="sim">Sim</option>
+						<option value="nao" selected>Não</option>
+					{% endif %}
+				</select>
+			</div>
+			<div>
+				<label>Tipo de via</label>
+				<input type="text" name="tipoVia" value="{{veiculo.tipoVia}}"/>
+			</div>
+			<div>
+				<input id="submit" type="submit" value="Salvar"/>
+			</div>
+		</form>
+    <script src="./javascripts/validation.js"></script>
+	</body>
+</html>

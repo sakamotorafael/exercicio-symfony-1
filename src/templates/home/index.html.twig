@@ -1,95 +1,117 @@
 <!doctype html>
 <html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Cadastro de veículos</title>
-    <style>
-        *{
-            font-family: "Arial"
-        }
-        form, table {
-            width: 50%;
-            margin: auto;
-            border: 1px solid #ccc;
-            padding: 50px;
-            box-sizing: border-box;
-            border-radius: 10px;
-        }
-        form > div {
-            display: flex;
-            flex: 1;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            margin: 10px;
-        }
-        form > div > label {
-            font-size: 18pt;
-        }
-        form > div > input, select {
-            margin-top: 15px;
-            font-size: 18pt;
-            padding: 5px 10px;
-        }
-        table {
-            margin-top: 15px;
-        }
-        thead th {
-            background: #333;
-            color: #fff;
-        }
-        td {
-            text-align: center;
-        }
-    </style>
-</head>
-<body>
-    <form>
-        <div>
-            <label>Veículo</label>
-            <input type="text" />
-        </div>
-        <div>
-            <label>Quantidade de rodas</label>
-            <input type="number" />
-        </div>
-        <div>
-            <label>É motorizado</label>
-            <select id="motorizado">
-                <option value="sim">Sim</option>
-                <option value="nao">Não</option>
-            </select>
-        </div>
-        <div>
-            <label>Tipo de via</label>
-            <input type="text" />
-        </div>
-        <div>
-            <input type="submit" value="Cadastrar"/>
-        </div>
-    </form>
-    <table>
-        <thead>
-            <tr>
-                <th>Veículo</th>
-                <th>Quantidade de rodas</th>
-                <th>Motorizado</th>
-                <th>Tipo de via</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for veiculo in veiculos %}
-            <tr>
-                <td>{{ veiculo.nome }}</td>
-                <td>{{veiculo.qtdRodas}}</td>
-                <td>{{veiculo.motorizado}}</td>
-                <td>{{veiculo.tipoVia}}</td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
-</body>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+		<meta http-equiv="X-UA-Compatible" content="ie=edge">
+		<title>Cadastro de veículos</title>
+		<style>
+			* {
+				font-family: "Arial"
+			}
+			form,
+			table {
+				width: 50%;
+				margin: auto;
+				border: 1px solid #ccc;
+				padding: 50px;
+				box-sizing: border-box;
+				border-radius: 10px;
+			}
+			form > div {
+				display: flex;
+				flex: 1;
+				flex-direction: column;
+				justify-content: center;
+				align-items: center;
+				margin: 10px;
+			}
+			form > div > label {
+				font-size: 18pt;
+			}
+			form > div > input,
+			select {
+				margin-top: 15px;
+				font-size: 18pt;
+				padding: 5px 10px;
+			}
+			table {
+				margin-top: 15px;
+			}
+			thead th {
+				background: #333;
+				color: #fff;
+			}
+			td {
+				text-align: center;
+			}
+			.flash-notice {
+				display: flex;
+				justify-content:center;
+				background-color: orange;
+				color: white;
+				margin-bottom: 10px;
+			}
+		</style>
+	</head>
+	<body>
+		{% for message in app.flashes('message') %}
+			<div class="flash-notice">
+				{{message}}
+			</div>
+		{% endfor %}
+		<form action="/adicionar" method="POST">
+			<div>
+				<label>Veículo</label>
+				<input type="text" name="veiculo"/>
+			</div>
+			<div>
+				<label>Quantidade de rodas</label>
+				<input id="qtdRodas" type="number" name="qtdRodas"/>
+			</div>
+			<div>
+				<label>É motorizado</label>
+				<select id="motorizado" name="motorizado">
+					<option value="sim">Sim</option>
+					<option value="nao">Não</option>
+				</select>
+			</div>
+			<div>
+				<label>Tipo de via</label>
+				<input type="text" name="tipoVia"/>
+			</div>
+			<div>
+				<input id="submit" type="submit" value="Cadastrar"/>
+			</div>
+		</form>
+		<table>
+			<thead>
+				<tr>
+					<th>Veículo</th>
+					<th>Quantidade de rodas</th>
+					<th>Motorizado</th>
+					<th>Tipo de via</th>
+					<th></th>
+					<th></th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for veiculo in veiculos %}
+					<tr>
+						<td>{{ veiculo.nome }}</td>
+						<td>{{veiculo.qtdRodas}}</td>
+						<td>{{veiculo.motorizado}}</td>
+						<td>{{veiculo.tipoVia}}</td>
+						<td>
+							<a href="/editar/{{veiculo.id}}">editar</a>
+						</td>
+						<td>
+							<a href="/deletar/{{veiculo.id}}">deletar</a>
+						</td>
+					</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+		<script src="./javascripts/validation.js"></script>
+	</body>
 </html>
