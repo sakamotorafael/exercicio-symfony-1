@@ -1,5 +1,6 @@
 const inputs = document.querySelectorAll('input')
 const form = document.querySelector('form')
+const qtdRodas = document.getElementById('qtdRodas')
 
 form.addEventListener('submit', (event) => {
   event.returnValue = validateForm()
@@ -16,6 +17,11 @@ function validateForm() {
 
   if (!allFilled) {
     alert('Todos os campos precisam ser preenchidos!')
+    return false
+  }
+
+  if(qtdRodas.value < 0){
+    alert('Valor inválido para a quantidade de rodas do veículo.')
     return false
   }
 
