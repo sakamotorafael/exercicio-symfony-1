@@ -22,6 +22,8 @@ function validateForm() {
 
   if(qtdRodas.value < 0){
     alert('Valor inválido para a quantidade de rodas do veículo.')
+    qtdRodas.value=""
+    qtdRodas.focus()
     return false
   }
 
