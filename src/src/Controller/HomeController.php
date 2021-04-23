@@ -36,11 +36,19 @@ class HomeController extends AbstractController
     public function create(Request $request, VeiculoRepository $veiculoRepository){
         $form = $this->createForm(VeiculoType::class);
         $form->handleRequest($request);
-        $veiculo = $form->getData();
         
-        $veiculoRepository->create($veiculo);
-        $this->addFlash("message", "Veículo cadastrado com sucesso!");
-        return $this->redirectToRoute("home");
+        if($form->isValid()){
+            $veiculo = $form->getData();
+            $veiculoRepository->create($veiculo);
+            $this->addFlash("message", "Veículo cadastrado com sucesso!");
+            return $this->redirectToRoute("home");
+        } else {
+            $veiculos = $veiculoRepository->findAll();
+            return $this->render('home/index.html.twig', [
+                "veiculos" => $veiculos,
+                "formVeiculo" => $form->createView()
+            ]);
+        }
     }
 
     /**
@@ -74,12 +82,20 @@ class HomeController extends AbstractController
      */
     public function update(Veiculo $veiculo, Request $request, VeiculoRepository $veiculoRepository): Response
     {
-        $form = $this->createForm(VeiculoType::class, $veiculo);
+        $form = $this->createForm(VeiculoType::class);
         $form->handleRequest($request);
-        $veiculo = $form->getData();
-        $veiculoRepository->update($veiculo);
-
-        $this->addFlash("message", "Veículo modificado com sucesso!");
-        return $this->redirectToRoute("home");
+        
+        if($form->isValid()){
+            $veiculo = $form->getData();
+            $veiculoRepository->update($veiculo);
+            $this->addFlash("message", "Veículo cadastrado com sucesso!");
+            return $this->redirectToRoute("home");
+        } else {
+            $veiculos = $veiculoRepository->findAll();
+            return $this->render('home/index.html.twig', [
+                "veiculos" => $veiculos,
+                "formVeiculo" => $form->createView()
+            ]);
+        }
     }
 }

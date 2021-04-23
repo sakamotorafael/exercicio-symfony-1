@@ -1,0 +1,51 @@
+* {
+  font-family: "Arial"
+}
+form,
+table {
+  width: 50%;
+  margin: auto;
+  border: 1px solid #ccc;
+  padding: 50px;
+  box-sizing: border-box;
+  border-radius: 10px;
+}
+form div {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 10px;
+}
+form div label {
+  font-size: 14pt;
+}
+form input, select {
+  margin-top: 5px;
+  font-size: 14pt;
+  padding: 5px 10px;
+}
+
+table {
+  margin-top: 15px;
+}
+thead th {
+  background: #333;
+  color: #fff;
+}
+td {
+  text-align: center;
+}
+.flash-notice {
+  display: flex;
+  justify-content:center;
+  background-color: orange;
+  color: white;
+  margin-bottom: 10px;
+  padding: 10px;
+}
+
+li::marker{
+  display: none;
+}

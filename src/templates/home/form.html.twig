@@ -5,53 +5,16 @@
 		<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
 		<meta http-equiv="X-UA-Compatible" content="ie=edge">
 		<title>Cadastro de veículos</title>
-		<style>
-			* {
-				font-family: "Arial"
-			}
-			form,
-			table {
-				width: 50%;
-				margin: auto;
-				border: 1px solid #ccc;
-				padding: 50px;
-				box-sizing: border-box;
-				border-radius: 10px;
-			}
-			form > div {
-				display: flex;
-				flex: 1;
-				flex-direction: column;
-				justify-content: center;
-				align-items: center;
-				margin: 10px;
-			}
-			form > div > label {
-				font-size: 18pt;
-			}
-			form > div > input,
-			select {
-				margin-top: 15px;
-				font-size: 18pt;
-				padding: 5px 10px;
-			}
-			table {
-				margin-top: 15px;
-			}
-			thead th {
-				background: #333;
-				color: #fff;
-			}
-			td {
-				text-align: center;
-			}
-		</style>
+		<link rel="stylesheet" href="/styles/style.css">
 	</head>
 	<body>
-		{{ form_start(formVeiculo, { 'action': path('update', { 'id': veiculo.id} ) } ) }}
+		{{ form_start(formVeiculo, { 'action': path('update')} ) }}
 			{{ form_widget(formVeiculo) }}
+			<div>
 			<input id="submit" type="submit" value="Atualizar"/>
+			</div>
+			{{ form_errors(formVeiculo) }}
 		{{ form_end(formVeiculo) }}
-    <script src="/javascripts/validation.js"></script>
+    <!-- <script src="/javascripts/validation.js"></script> -->
 	</body>
 </html>

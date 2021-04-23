@@ -5,6 +5,7 @@ namespace App\Entity;
 
 use App\Repository\VeiculoRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=VeiculoRepository::class)
@@ -18,13 +19,52 @@ class Veiculo
      * @ORM\GeneratedValue
      */
     private int $id;
-    /** @ORM\Column(type="string", nullable=false) */
+
+    /** 
+     * @ORM\Column(type="string", nullable=false) 
+     * @Assert\NotBlank
+     * @Assert\Length(
+     *      min = 2,
+     *      max = 50,
+     *      minMessage = "This field must be at least {{ limit }} characters long",
+     *      maxMessage = "This field name cannot be longer than {{ limit }} characters"
+     * )
+     * /**
+     * @Assert\Regex(
+     *     pattern="/\d/",
+     *     match=false,
+     *     message="This field cannot contain a number"
+     * )
+     */
     private string $nome;
-    /** @ORM\Column(type="integer", nullable=false) */
+
+    /** 
+     * @ORM\Column(type="integer", nullable=false) 
+     * @Assert\NotBlank
+     * @Assert\PositiveOrZero
+     * */
     private int $qtdRodas;
-    /** @ORM\Column(type="string", nullable=false) */
+
+    /** 
+     * @ORM\Column(type="integer")
+     * */
     private bool $motorizado;
-    /** @ORM\Column(type="string", nullable=false) */
+
+    /** 
+     * @ORM\Column(type="string", nullable=false) 
+     * @Assert\NotBlank
+     * @Assert\Length(
+     *      min = 2,
+     *      max = 50,
+     *      minMessage = "This field must be at least {{ limit }} characters long",
+     *      maxMessage = "This field name cannot be longer than {{ limit }} characters"
+     * )
+     * @Assert\Regex(
+     *     pattern="/\d/",
+     *     match=false,
+     *     message="This field cannot contain a number"
+     * )
+     * */
     private string $tipoVia;
 
 

@@ -2,7 +2,8 @@ const inputs = document.querySelectorAll('input')
 const form = document.querySelector('form')
 const qtdRodas = document.getElementById('veiculo_qtdRodas')
 
-function invalidFieldException(input, message){
+function InvalidInputException(input, message){
+  this.message = message
   input.style.borderColor = 'red'
   input.value = ''
   input.focus()
@@ -20,7 +21,7 @@ form.addEventListener('submit', event => {
 
 function validateForm() {
   if (qtdRodas.value < 0) {
-    throw new invalidFieldException(qtdRodas, 'Numero de rodas inválido.')
+    throw new InvalidInputException(qtdRodas, 'Numero de rodas inválido.')
   }
 
   return true
