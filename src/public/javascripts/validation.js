@@ -1,36 +1,32 @@
 const inputs = document.querySelectorAll('input')
 const form = document.querySelector('form')
-const qtdRodas = document.getElementById('qtdRodas')
+const qtdRodas = document.getElementById('veiculo_qtdRodas')
 
-form.addEventListener('submit', (event) => {
+function invalidFieldException(input, message){
+  input.style.borderColor = 'red'
+  input.value = ''
+  input.focus()
+  return false
+}
+
+form.addEventListener('submit', event => {
+  try{
   event.returnValue = validateForm()
+  } catch (error) {
+    alert(error.message)
+    event.returnValue = false
+  }
 })
 
 function validateForm() {
-  let allFilled = true
-  inputs.forEach((input) => {
-    if (!input.value) {
-      allFilled = false
-      input.style.borderColor = 'red'
-    }
-  })
-
-  if (!allFilled) {
-    alert('Todos os campos precisam ser preenchidos!')
-    return false
-  }
-
-  if(qtdRodas.value < 0){
-    alert('Valor inválido para a quantidade de rodas do veículo.')
-    qtdRodas.value=""
-    qtdRodas.focus()
-    return false
+  if (qtdRodas.value < 0) {
+    throw new invalidFieldException(qtdRodas, 'Numero de rodas inválido.')
   }
 
   return true
 }
 
-inputs.forEach((input) => {
+inputs.forEach( input => {
   input.addEventListener('change', () => {
     input.style.borderColor = 'black'
   })

@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Veiculo;
 use App\Repository\VeiculoRepository;
+use App\Form\VeiculoType;
 use Doctrine\Common\Annotations\Reader;
 use Doctrine\ORM\Mapping\Id;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -21,43 +22,44 @@ class HomeController extends AbstractController
     {
         
         $veiculos = $veiculoRepository->findAll();
+        $form = $this->createForm(VeiculoType::class);
         
         return $this->render('home/index.html.twig', [
-            "veiculos" => $veiculos
+            "veiculos" => $veiculos,
+            "formVeiculo" => $form->createView()
         ]);
     }
 
     /**
-     * @Route("/adicionar", name="create")
+     * @Route("/create", name="create")
      */
     public function create(Request $request, VeiculoRepository $veiculoRepository){
-        $nome = $request->get("veiculo");
-        $qtdRodas = $request->get("qtdRodas");
-        $motorizado = $request->get("motorizado");
-        $tipoVia = $request->get("tipoVia");
-
-        $veiculo = new Veiculo($nome, $qtdRodas, $motorizado, $tipoVia);
+        $form = $this->createForm(VeiculoType::class);
+        $form->handleRequest($request);
+        $veiculo = $form->getData();
+        
         $veiculoRepository->create($veiculo);
-
         $this->addFlash("message", "Veículo cadastrado com sucesso!");
         return $this->redirectToRoute("home");
     }
 
     /**
-     * @Route("/editar/{id}", name="edit")
+     * @Route("/edit/{id}", name="edit")
      */
-    public function edit(int $id, Veiculo $veiculo, VeiculoRepository $veiculoRepository): Response
+    public function edit(Veiculo $veiculo): Response
     {
-        $veiculo = $veiculoRepository->findOneBy(['id' => $id]);
+        $form = $this->createForm(VeiculoType::class, $veiculo);
+        
         return $this->render("home/form.html.twig", [
-        "veiculo" => $veiculo
+        "veiculo" => $veiculo,
+        "formVeiculo" => $form->createView()
     ]);
     }
 
     /**
-     * @Route("/deletar/{id}", name="deletar")
+     * @Route("/delete/{id}", name="delete")
      */
-    public function deletar(int $id, Veiculo $veiculo, VeiculoRepository $veiculoRepository): Response
+    public function delete(int $id, Veiculo $veiculo, VeiculoRepository $veiculoRepository): Response
     {
         $veiculo = $veiculoRepository->findOneBy(['id' => $id]);
         
@@ -68,16 +70,14 @@ class HomeController extends AbstractController
     }
 
     /**
-     * @Route("/editar/salvar/{id}", name="update")
+     * @Route("/update/{id}", name="update")
      */
-    public function update(int $id, Request $request, VeiculoRepository $veiculoRepository): Response
+    public function update(Veiculo $veiculo, Request $request, VeiculoRepository $veiculoRepository): Response
     {
-        $nome = $request->get("veiculo");
-        $qtdRodas = $request->get("qtdRodas");
-        $motorizado = $request->get("motorizado");
-        $tipoVia = $request->get("tipoVia");
-
-        $veiculoRepository->update($id, $nome, $qtdRodas, $motorizado, $tipoVia);
+        $form = $this->createForm(VeiculoType::class, $veiculo);
+        $form->handleRequest($request);
+        $veiculo = $form->getData();
+        $veiculoRepository->update($veiculo);
 
         $this->addFlash("message", "Veículo modificado com sucesso!");
         return $this->redirectToRoute("home");

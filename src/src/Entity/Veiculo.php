@@ -23,24 +23,10 @@ class Veiculo
     /** @ORM\Column(type="integer", nullable=false) */
     private int $qtdRodas;
     /** @ORM\Column(type="string", nullable=false) */
-    private string $motorizado;
+    private bool $motorizado;
     /** @ORM\Column(type="string", nullable=false) */
     private string $tipoVia;
 
-    /**
-     * Veiculo constructor.
-     * @param string $nome
-     * @param int $qtdRodas;
-     * @param string $motorizado;
-     * @param string $tipoVia;
-     */
-    public function __construct(string $nome, int $qtdRodas, string $motorizado, string $tipoVia)
-    {
-        $this->nome = $nome;
-        $this->qtdRodas = $qtdRodas;
-        $this->motorizado = $motorizado;
-        $this->tipoVia = $tipoVia;
-    }
 
     /**
      * @return int
@@ -91,17 +77,17 @@ class Veiculo
     }
 
     /**
-     * @return string
+     * @return bool
      */
-    public function getMotorizado(): string
+    public function getMotorizado(): bool
     {
         return $this->motorizado;
     }
 
     /**
-     * @param string $motorizado
+     * @param bool $motorizado
      */
-    public function setMotorizado(string $motorizado): void
+    public function setMotorizado(bool $motorizado): void
     {
         $this->motorizado = $motorizado;
     }

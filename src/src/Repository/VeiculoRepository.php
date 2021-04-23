@@ -22,18 +22,15 @@ class VeiculoRepository extends RepositoryServiceEntityRepository
         $em->flush();
     }
 
-    public function update(int $id, string $nome, int $qtdRodas, string $motorizado, string $tipoVia)
-    {
+    //receber $veiculo
+    public function update(Veiculo $veiculo){
         $em = $this->getEntityManager();
-
-        $veiculo = $em->find(Veiculo::class, $id);
-        $veiculo->setNome($nome);
-        $veiculo->setQtdRodas($qtdRodas);
-        $veiculo->setMotorizado($motorizado);
-        $veiculo->setTipoVia($tipoVia);
-
+        $em->beginTransaction();
+        $em->persist($veiculo);
+        $em->commit();
         $em->flush();
     }
+        
 
     public function delete(Veiculo $veiculo)
     {

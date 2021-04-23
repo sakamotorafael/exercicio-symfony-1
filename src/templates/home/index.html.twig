@@ -51,6 +51,7 @@
 				background-color: orange;
 				color: white;
 				margin-bottom: 10px;
+				padding: 10px;
 			}
 		</style>
 	</head>
@@ -60,30 +61,10 @@
 				{{message}}
 			</div>
 		{% endfor %}
-		<form action="/adicionar" method="POST">
-			<div>
-				<label>Veículo</label>
-				<input type="text" name="veiculo"/>
-			</div>
-			<div>
-				<label>Quantidade de rodas</label>
-				<input id="qtdRodas" type="number" name="qtdRodas"/>
-			</div>
-			<div>
-				<label>É motorizado</label>
-				<select id="motorizado" name="motorizado">
-					<option value="sim">Sim</option>
-					<option value="nao">Não</option>
-				</select>
-			</div>
-			<div>
-				<label>Tipo de via</label>
-				<input type="text" name="tipoVia"/>
-			</div>
-			<div>
-				<input id="submit" type="submit" value="Cadastrar"/>
-			</div>
-		</form>
+		{{ form_start(formVeiculo, { 'action': path('create')} ) }}
+			{{ form_widget(formVeiculo) }}
+			<input id="submit" type="submit" value="Cadastrar"/>
+		{{ form_end(formVeiculo) }}
 		<table>
 			<thead>
 				<tr>
@@ -100,13 +81,17 @@
 					<tr>
 						<td>{{ veiculo.nome }}</td>
 						<td>{{veiculo.qtdRodas}}</td>
-						<td>{{veiculo.motorizado}}</td>
+						{% if veiculo.motorizado %}
+						<td>Sim</td>
+						{% else %}
+						<td>Não</td>
+						{% endif %}
 						<td>{{veiculo.tipoVia}}</td>
 						<td>
-							<a href="/editar/{{veiculo.id}}">editar</a>
+							<a href="{{ path('edit', { 'id': veiculo.id}) }}">editar</a>
 						</td>
 						<td>
-							<a href="/deletar/{{veiculo.id}}">deletar</a>
+							<a href="{{ path('delete', { 'id': veiculo.id}) }}">deletar</a>
 						</td>
 					</tr>
 				{% endfor %}
