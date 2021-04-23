@@ -8,7 +8,7 @@
 		<link rel="stylesheet" href="/styles/style.css">
 	</head>
 	<body>
-		{{ form_start(formVeiculo, { 'action': path('update')} ) }}
+		{{ form_start(formVeiculo, { 'action': path('update', { 'id': veiculo.id}) } ) }}
 			{{ form_widget(formVeiculo) }}
 			<div>
 			<input id="submit" type="submit" value="Atualizar"/>
